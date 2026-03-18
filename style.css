@@ -182,6 +182,7 @@ body::after {
     font-size: 20px;
     text-shadow: var(--glow);
     flex-shrink: 0;
+    width: fit-content;
 }
 
 .prompt {
@@ -191,8 +192,6 @@ body::after {
 }
 
 .input {
-    flex: 1;
-    min-width: 0;
     background: transparent;
     border: none;
     outline: none;
@@ -201,7 +200,8 @@ body::after {
     font-size: 20px;
     text-shadow: var(--glow);
     caret-color: transparent;
-    width: 0;
+    width: fit-content;
+    min-width: 1px;
 }
 
 .cursor {
