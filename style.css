@@ -59,6 +59,11 @@ html, body {
     95% { opacity: 1; }
 }
 
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
 body {
     animation: flicker 5s infinite;
 }
@@ -195,7 +200,15 @@ body::after {
     font-family: 'VT323', 'Courier New', monospace;
     font-size: 20px;
     text-shadow: var(--glow);
-    caret-color: var(--green);
+    caret-color: transparent;
+    width: 0;
+}
+
+.cursor {
+    color: var(--green);
+    text-shadow: var(--glow);
+    animation: blink 1s step-end infinite;
+    flex-shrink: 0;
 }
 
 /* ===== RESPONSIVE ===== */
