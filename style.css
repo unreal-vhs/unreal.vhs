@@ -6,11 +6,11 @@
 }
 
 :root {
-    --green: #00ff41;
-    --green-dim: #00aa2a;
-    --green-dark: #003b0f;
-    --bg: #0a0a0a;
-    --glow: 0 0 10px rgba(0, 255, 65, 0.5), 0 0 20px rgba(0, 255, 65, 0.2);
+    --green: #33ff33;
+    --green-dim: #22aa22;
+    --green-dark: #0a3d0a;
+    --bg: #0a1a0a;
+    --glow: 0 0 10px rgba(51, 255, 51, 0.5), 0 0 20px rgba(51, 255, 51, 0.2);
 }
 
 html, body {
