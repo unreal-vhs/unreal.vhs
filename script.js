@@ -3,16 +3,16 @@ const bootLines = [
     { text: '', delay: 300 },
     { text: 'UNREAL.VHS', cls: 'title', delay: 0 },
     { text: '', delay: 200 },
-    { text: 'VHS SYSTEMS v2.0.26', delay: 100 },
-    { text: '', delay: 100 },
+    { text: 'VHS SYSTEMS v2.0.26', delay: 150 },
+    { text: '', delay: 150 },
     { text: 'LOADING ████████████████████░░░░░░░░ 67%', delay: 400 },
     { text: '', delay: 200 },
-    { text: '[OK] BIOS initialized', delay: 200 },
-    { text: '[OK] CRT phosphor warm-up complete', delay: 200 },
-    { text: '[OK] VHS tracking aligned', delay: 200 },
-    { text: '[OK] Signal acquired', delay: 200 },
+    { text: '[OK] BIOS initialized', delay: 250 },
+    { text: '[OK] CRT phosphor warm-up complete', delay: 250 },
+    { text: '[OK] VHS tracking aligned', delay: 250 },
+    { text: '[OK] Signal acquired', delay: 250 },
     { text: '', delay: 300 },
-    { text: '> SOMETHING IS PREPARING...', cls: 'bright', delay: 600 },
+    { text: '> SOMETHING IS PREPARING...', cls: 'bright', delay: 800 },
     { text: '', delay: 200 },
 ];
 
@@ -43,7 +43,6 @@ async function runBoot() {
     terminal.classList.remove('hidden');
     input.focus();
     
-    // Welcome
     print('  Welcome to UNREAL.VHS', 'bright');
     print('  AI-generated stories from the liminal void', 'dim');
     print('');

@@ -10,15 +10,16 @@
     --green-dim: #00aa2a;
     --green-dark: #003b0f;
     --bg: #0a0a0a;
-    --glow: 0 0 10px rgba(0, 255, 65, 0.4), 0 0 20px rgba(0, 255, 65, 0.1);
+    --glow: 0 0 10px rgba(0, 255, 65, 0.5), 0 0 20px rgba(0, 255, 65, 0.2);
 }
 
 html, body {
     height: 100%;
     background: var(--bg);
     overflow: hidden;
-    font-family: 'Courier New', 'Lucida Console', monospace;
+    font-family: 'VT323', 'Courier New', monospace;
     color: var(--green);
+    font-size: 18px;
 }
 
 /* ===== CRT OVERLAY ===== */
@@ -50,21 +51,18 @@ html, body {
     );
 }
 
-/* Screen flicker */
+/* Flicker */
 @keyframes flicker {
     0%, 100% { opacity: 1; }
-    92% { opacity: 1; }
-    93% { opacity: 0.8; }
-    94% { opacity: 1; }
-    96% { opacity: 0.9; }
-    97% { opacity: 1; }
+    93% { opacity: 1; }
+    94% { opacity: 0.85; }
+    95% { opacity: 1; }
 }
 
 body {
     animation: flicker 5s infinite;
 }
 
-/* CRT curvature via pseudo-element */
 body::after {
     content: '';
     position: fixed;
@@ -93,22 +91,24 @@ body::after {
 }
 
 .boot-text {
-    font-size: clamp(0.7rem, 2vw, 1rem);
+    font-size: 20px;
     line-height: 1.8;
     white-space: pre-wrap;
     text-shadow: var(--glow);
+    text-align: center;
 }
 
 .boot-title {
-    font-size: clamp(1.8rem, 6vw, 3.5rem);
-    font-weight: bold;
-    letter-spacing: 8px;
+    font-size: clamp(48px, 12vw, 96px);
+    font-weight: normal;
+    letter-spacing: 12px;
     color: #fff;
     text-shadow: 
-        0 0 20px rgba(0, 255, 65, 0.8),
-        0 0 40px rgba(0, 255, 65, 0.4),
-        0 0 80px rgba(0, 255, 65, 0.2);
+        0 0 20px rgba(0, 255, 65, 1),
+        0 0 40px rgba(0, 255, 65, 0.6),
+        0 0 80px rgba(0, 255, 65, 0.3);
     margin: 1rem 0;
+    line-height: 1;
 }
 
 .bright {
@@ -137,8 +137,8 @@ body::after {
 .output {
     flex: 1;
     overflow-y: auto;
-    font-size: clamp(0.75rem, 1.8vw, 0.95rem);
-    line-height: 1.7;
+    font-size: 20px;
+    line-height: 1.6;
     text-shadow: var(--glow);
     padding-bottom: 1rem;
 }
@@ -170,25 +170,11 @@ body::after {
     text-shadow: var(--glow);
 }
 
-.output .line.center {
-    text-align: center;
-}
-
-.output a {
-    color: var(--green);
-    text-decoration: underline;
-}
-
-.output a:hover {
-    color: #fff;
-}
-
 /* ===== INPUT LINE ===== */
 .input-line {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: clamp(0.75rem, 1.8vw, 0.95rem);
+    font-size: 20px;
     text-shadow: var(--glow);
     flex-shrink: 0;
 }
@@ -196,28 +182,20 @@ body::after {
 .prompt {
     color: var(--green);
     white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .input {
     flex: 1;
+    min-width: 0;
     background: transparent;
     border: none;
     outline: none;
     color: var(--green);
-    font-family: inherit;
-    font-size: inherit;
+    font-family: 'VT323', 'Courier New', monospace;
+    font-size: 20px;
     text-shadow: var(--glow);
-    caret-color: transparent;
-}
-
-.cursor {
-    animation: blink 1s step-end infinite;
-    font-size: inherit;
-}
-
-@keyframes blink {
-    0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0; }
+    caret-color: var(--green);
 }
 
 /* ===== RESPONSIVE ===== */
@@ -226,7 +204,11 @@ body::after {
         padding: 1rem;
     }
     
-    .prompt {
-        font-size: 0.65rem;
+    body {
+        font-size: 14px;
+    }
+    
+    .output, .input, .input-line {
+        font-size: 16px;
     }
 }
