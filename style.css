@@ -182,7 +182,6 @@ body::after {
     font-size: 20px;
     text-shadow: var(--glow);
     flex-shrink: 0;
-    width: fit-content;
 }
 
 .prompt {
@@ -191,17 +190,9 @@ body::after {
     flex-shrink: 0;
 }
 
-.input {
-    background: transparent;
-    border: none;
-    outline: none;
+.typed {
     color: var(--green);
-    font-family: 'VT323', 'Courier New', monospace;
-    font-size: 20px;
-    text-shadow: var(--glow);
-    caret-color: transparent;
-    width: fit-content;
-    min-width: 1px;
+    white-space: pre;
 }
 
 .cursor {
@@ -209,9 +200,8 @@ body::after {
     text-shadow: var(--glow);
     animation: blink 1s step-end infinite;
     flex-shrink: 0;
-    font-size: 24px;
+    font-size: 20px;
     line-height: 1;
-    margin-left: -1px;
 }
 
 /* ===== RESPONSIVE ===== */

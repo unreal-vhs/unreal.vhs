@@ -20,7 +20,10 @@ const bootScreen = document.getElementById('boot-screen');
 const bootText = document.getElementById('boot-text');
 const terminal = document.getElementById('terminal');
 const output = document.getElementById('output');
-const input = document.getElementById('input');
+const typed = document.getElementById('typed');
+
+let inputValue = '';
+let ready = false;
 
 async function typeText(element, text, speed = 35) {
     for (let i = 0; i < text.length; i++) {
@@ -52,7 +55,7 @@ async function runBoot() {
     await sleep(500);
     bootScreen.classList.add('hidden');
     terminal.classList.remove('hidden');
-    input.focus();
+    ready = true;
     
     print('  Welcome to UNREAL.VHS', 'bright');
     print('  AI-generated stories from the liminal void', 'dim');
@@ -158,11 +161,15 @@ const commands = {
     },
 };
 
-input.addEventListener('keydown', (e) => {
+// ===== INPUT HANDLING =====
+document.addEventListener('keydown', (e) => {
+    if (!ready) return;
+    
     if (e.key === 'Enter') {
-        const cmd = input.value.trim().toLowerCase();
-        print(`unreal@vhs:~$ ${input.value}`);
-        input.value = '';
+        const cmd = inputValue.trim().toLowerCase();
+        print(`unreal@vhs:~$ ${inputValue}`);
+        inputValue = '';
+        typed.textContent = '';
         if (cmd === '') return;
         if (commands[cmd]) {
             commands[cmd]();
@@ -171,9 +178,19 @@ input.addEventListener('keydown', (e) => {
             print('  Type "help" for available commands.', 'dim');
             print('');
         }
+        return;
+    }
+    
+    if (e.key === 'Backspace') {
+        inputValue = inputValue.slice(0, -1);
+        typed.textContent = inputValue;
+        return;
+    }
+    
+    if (e.key.length === 1 && !e.ctrlKey && !e.metaKey) {
+        inputValue += e.key;
+        typed.textContent = inputValue;
     }
 });
-
-document.addEventListener('click', () => input.focus());
 
 runBoot();
