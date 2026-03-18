@@ -1,23 +1,19 @@
 // ===== BOOT SEQUENCE =====
 const bootLines = [
-    '',
-    '  ██╗   ██╗███╗   ██╗██████╗ ███████╗ █████╗ ██╗     ██╗   ██╗██╗  ██╗███████╗',
-    '  ██║   ██║████╗  ██║██╔══██╗██╔════╝██╔══██╗██║     ██║   ██║██║  ██║██╔════╝',
-    '  ██║   ██║██╔██╗ ██║██████╔╝█████╗  ███████║██║     ██║   ██║███████║███████╗',
-    '  ██║   ██║██║╚██╗██║██╔══██╗██╔══╝  ██╔══██║██║     ██║   ██║██╔══██║╚════██║',
-    '  ╚██████╔╝██║ ╚████║██║  ██║███████╗██║  ██║███████╗╚██████╔╝██║  ██║███████║',
-    '   ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝',
-    '',
-    '  VHS SYSTEMS v2.0.26',
-    '  ███████████████████████████████████░░░░░░  LOADING...',
-    '',
-    '  [OK] BIOS initialized',
-    '  [OK] CRT phosphor warm-up complete',
-    '  [OK] VHS tracking aligned',
-    '  [OK] Signal acquired',
-    '',
-    '  > SOMETHING IS PREPARING...',
-    '',
+    { text: '', delay: 300 },
+    { text: 'UNREAL.VHS', cls: 'title', delay: 0 },
+    { text: '', delay: 200 },
+    { text: 'VHS SYSTEMS v2.0.26', delay: 100 },
+    { text: '', delay: 100 },
+    { text: 'LOADING ████████████████████░░░░░░░░ 67%', delay: 400 },
+    { text: '', delay: 200 },
+    { text: '[OK] BIOS initialized', delay: 200 },
+    { text: '[OK] CRT phosphor warm-up complete', delay: 200 },
+    { text: '[OK] VHS tracking aligned', delay: 200 },
+    { text: '[OK] Signal acquired', delay: 200 },
+    { text: '', delay: 300 },
+    { text: '> SOMETHING IS PREPARING...', cls: 'bright', delay: 600 },
+    { text: '', delay: 200 },
 ];
 
 const bootScreen = document.getElementById('boot-screen');
@@ -26,29 +22,20 @@ const terminal = document.getElementById('terminal');
 const output = document.getElementById('output');
 const input = document.getElementById('input');
 
-async function typeLine(text, delay = 15) {
-    return new Promise(resolve => {
-        let i = 0;
-        const interval = setInterval(() => {
-            bootText.textContent += text[i];
-            i++;
-            if (i >= text.length) {
-                clearInterval(interval);
-                bootText.textContent += '\n';
-                resolve();
-            }
-        }, delay);
-    });
-}
-
 async function runBoot() {
-    for (const line of bootLines) {
-        const delay = line.includes('████') ? 2 : (line.includes('[OK]') ? 30 : 12);
-        await typeLine(line, delay);
+    for (const item of bootLines) {
+        const el = document.createElement('div');
+        el.textContent = item.text;
+        if (item.cls === 'title') {
+            el.className = 'boot-title';
+        } else if (item.cls === 'bright') {
+            el.className = 'bright';
+        }
+        bootText.appendChild(el);
+        await sleep(item.delay || 100);
     }
     
-    // Glitch transition
-    await sleep(800);
+    await sleep(600);
     bootScreen.style.opacity = '0';
     bootScreen.style.transition = 'opacity 0.5s';
     await sleep(500);
@@ -56,10 +43,8 @@ async function runBoot() {
     terminal.classList.remove('hidden');
     input.focus();
     
-    // Welcome message
-    print('');
+    // Welcome
     print('  Welcome to UNREAL.VHS', 'bright');
-    '  AI-generated stories from the liminal void'.split('').forEach(() => {});
     print('  AI-generated stories from the liminal void', 'dim');
     print('');
     print('  Type "help" to begin.');
@@ -79,15 +64,6 @@ function print(text, className = '') {
     output.scrollTop = output.scrollHeight;
 }
 
-function printHTML(html, className = '') {
-    const line = document.createElement('div');
-    line.className = 'line' + (className ? ' ' + className : '');
-    line.innerHTML = html;
-    output.appendChild(line);
-    output.scrollTop = output.scrollHeight;
-}
-
-// Commands
 const commands = {
     help: () => {
         print('');
@@ -154,7 +130,6 @@ const commands = {
         print('  > CONTACT', 'bright');
         print('  ─────────────────────────────');
         print('  Instagram:  @unreal.vhs');
-        print('  Email:      unreal@vhs.art');
         print('');
     },
 
@@ -170,22 +145,15 @@ const commands = {
         print('  Something is watching.');
         print('  Stay tuned.');
         print('');
-        print('  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░', 'dim');
-        print('  ░░░ SIGNAL INCOMING ░░░░░░░░░', 'dim');
-        print('  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░', 'dim');
-        print('');
     },
 };
 
-// Input handling
 input.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
         const cmd = input.value.trim().toLowerCase();
         print(`unreal@vhs:~$ ${input.value}`);
         input.value = '';
-        
         if (cmd === '') return;
-        
         if (commands[cmd]) {
             commands[cmd]();
         } else {
@@ -196,8 +164,6 @@ input.addEventListener('keydown', (e) => {
     }
 });
 
-// Keep focus on input
 document.addEventListener('click', () => input.focus());
 
-// ===== START =====
 runBoot();

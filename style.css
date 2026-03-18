@@ -99,6 +99,23 @@ body::after {
     text-shadow: var(--glow);
 }
 
+.boot-title {
+    font-size: clamp(1.8rem, 6vw, 3.5rem);
+    font-weight: bold;
+    letter-spacing: 8px;
+    color: #fff;
+    text-shadow: 
+        0 0 20px rgba(0, 255, 65, 0.8),
+        0 0 40px rgba(0, 255, 65, 0.4),
+        0 0 80px rgba(0, 255, 65, 0.2);
+    margin: 1rem 0;
+}
+
+.bright {
+    color: #fff;
+    text-shadow: var(--glow);
+}
+
 /* ===== TERMINAL ===== */
 .terminal {
     position: fixed;
