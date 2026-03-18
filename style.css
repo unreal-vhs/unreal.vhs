@@ -209,6 +209,9 @@ body::after {
     text-shadow: var(--glow);
     animation: blink 1s step-end infinite;
     flex-shrink: 0;
+    font-size: 24px;
+    line-height: 1;
+    margin-left: -1px;
 }
 
 /* ===== RESPONSIVE ===== */

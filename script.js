@@ -1,18 +1,18 @@
 // ===== BOOT SEQUENCE =====
 const bootLines = [
     { text: '', delay: 300 },
-    { text: 'UNREAL.VHS', cls: 'title', delay: 0 },
+    { text: 'UNREAL.VHS', cls: 'title', delay: 0, type: true },
     { text: '', delay: 200 },
-    { text: 'VHS SYSTEMS v2.0.26', delay: 150 },
+    { text: 'VHS SYSTEMS v2.0.26', delay: 150, type: true },
     { text: '', delay: 150 },
-    { text: 'LOADING ████████████████████░░░░░░░░ 67%', delay: 400 },
+    { text: 'LOADING ████████████████████░░░░░░░░ 67%', delay: 400, type: true },
     { text: '', delay: 200 },
-    { text: '[OK] BIOS initialized', delay: 250 },
-    { text: '[OK] CRT phosphor warm-up complete', delay: 250 },
-    { text: '[OK] VHS tracking aligned', delay: 250 },
-    { text: '[OK] Signal acquired', delay: 250 },
+    { text: '[OK] BIOS initialized', delay: 250, type: true },
+    { text: '[OK] CRT phosphor warm-up complete', delay: 250, type: true },
+    { text: '[OK] VHS tracking aligned', delay: 250, type: true },
+    { text: '[OK] Signal acquired', delay: 250, type: true },
     { text: '', delay: 300 },
-    { text: '> SOMETHING IS PREPARING...', cls: 'bright', delay: 800 },
+    { text: '> SOMETHING IS PREPARING...', cls: 'bright', delay: 800, type: true },
     { text: '', delay: 200 },
 ];
 
@@ -22,16 +22,27 @@ const terminal = document.getElementById('terminal');
 const output = document.getElementById('output');
 const input = document.getElementById('input');
 
+async function typeText(element, text, speed = 35) {
+    for (let i = 0; i < text.length; i++) {
+        element.textContent += text[i];
+        await sleep(speed);
+    }
+}
+
 async function runBoot() {
     for (const item of bootLines) {
         const el = document.createElement('div');
-        el.textContent = item.text;
-        if (item.cls === 'title') {
-            el.className = 'boot-title';
-        } else if (item.cls === 'bright') {
-            el.className = 'bright';
-        }
+        if (item.cls === 'title') el.className = 'boot-title';
+        else if (item.cls === 'bright') el.className = 'bright';
         bootText.appendChild(el);
+        
+        if (item.type && item.text) {
+            const speed = item.cls === 'title' ? 80 : 30;
+            await typeText(el, item.text, speed);
+        } else {
+            el.textContent = item.text;
+        }
+        
         await sleep(item.delay || 100);
     }
     
